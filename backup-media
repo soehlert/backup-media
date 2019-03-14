@@ -8,27 +8,27 @@
 # User defined variables --- Change these ---
 #
 # Who should own the files
-LUSER=''
+LUSER='{{ backup_luser }}'
 # What group should own the files
-LGROUP=''
+LGROUP='{{ backup_lgroup }}'
 # Permissions you want on end folder
-PERMS=''
+PERMS='{{ backup_permissions }}'
 # The base of the path you're backing up from
-LBASE=''
+LBASE='{{ backup_lbase }}'
 # The base of the path you're backing up to
-RBASE=''
-# Movies from then to
-LMOVIES=$LBASE//
-RMOVIES=$RBASE//
-# Music from then to
-LMUSIC=$LBASE//
-RMUSIC=$RBASE//
-# TV from then to
-LTV=$LBASE//
-RTV=$RBASE//
+RBASE='{{ backup_rbase }}'
+# Movies from there to
+LMOVIES=$LBASE/{{ backup_lmovies }}/
+RMOVIES=$RBASE/{{ backup_rmovies }}/
+# Music from there to
+LMUSIC=$LBASE/{{ backup_lmovies}}/
+RMUSIC=$RBASE/{{ backup_rmovies}}/
+# TV from there to
+LTV=$LBASE/{{ backup_ltv }}/
+RTV=$RBASE/{{ backup_rtv }}/
 # Other videos (Plex works best with Home Videos Library for videos that are not on IMDB or TVDB)
-LHV=$LBASE//
-RHV=$RBASE//
+LHV=$LBASE/{{ backup_lhv }}/
+RHV=$RBASE/{{ backup_rhv }}/
 # ---These should work for most people ---
 # Date format
 DATE=$(date +%Y-%m-%d)
