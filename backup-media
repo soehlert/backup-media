@@ -21,8 +21,8 @@ RBASE='{{ backup_rbase }}'
 LMOVIES=$LBASE/{{ backup_lmovies }}/
 RMOVIES=$RBASE/{{ backup_rmovies }}/
 # Music from there to
-LMUSIC=$LBASE/{{ backup_lmovies}}/
-RMUSIC=$RBASE/{{ backup_rmovies}}/
+LMUSIC=$LBASE/{{ backup_lmovies }}/
+RMUSIC=$RBASE/{{ backup_rmovies }}/
 # TV from there to
 LTV=$LBASE/{{ backup_ltv }}/
 RTV=$RBASE/{{ backup_rtv }}/
