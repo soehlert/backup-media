@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck disable=SC2145
+# shellcheck disable=SC2145,SC1083
 
 # Bash script to backup my local media folders to my remote folders
 # I use Plex, so the dirs here line up with the Plex Library type
@@ -8,9 +8,9 @@
 # User defined variables --- Change these ---
 #
 # Who should own the files
-LUSER='{{ backup_luser }}'
+USER='{{ backup_user }}'
 # What group should own the files
-LGROUP='{{ backup_lgroup }}'
+GROUP='{{ backup_group }}'
 # Permissions you want on end folder
 PERMS='{{ backup_permissions }}'
 # The base of the path you're backing up from
@@ -33,7 +33,7 @@ RHV=$RBASE/{{ backup_rhv }}/
 # Date format
 DATE=$(date +%Y-%m-%d)
 # Rsync options
-Options=("--prune-empty-dirs --hard-links --human-readable --size-only --progress --recursive ")
+Options=("--prune-empty-dirs --hard-links --human-readable --size-only --progress --recursive")
 ##################################################################################################
 
 ##################################################################################################
@@ -56,8 +56,8 @@ h: print this usage guide
 
 AdjustPerms()
 {
-  chown -R $LUSER:$LGROUP "$1"
-  chmod -R $PERMS "$1"
+  chown -R "$USER":"$GROUP" "$1"
+  chmod -R "$PERMS" "$1"
 }
 
 # Grab command line options
@@ -89,8 +89,8 @@ if [ -d "$LOG_BASE" ]
 then
   Log="$LOG_BASE/$DATE-$media.log"
 else
-  mkdir $LOG_BASE
-  chown $LUSER:$LGROUP $LOG_BASE
+  mkdir "$LOG_BASE"
+  chown "$USER":"$GROUP" "$LOG_BASE"
   Log="$LOG_BASE/$DATE-$media.log"
 fi
 ##################################################################################################
@@ -98,19 +98,19 @@ fi
 if [[ "$media" == "movies" ]]
 then
   rsync "${Options[@]}" --log-file="$Log" "$LMOVIES" "$RMOVIES"
-  AdjustPerms $RMOVIES
+  AdjustPerms "$RMOVIES"
 elif [[ "$media" == "homemov" ]]
 then
   rsync "${Options[@]}" --log-file="$Log" "$LHV" "$RHV"
-  AdjustPerms $RHV
+  AdjustPerms "$RHV"
 elif [[ "$media" == "music" ]]
 then
   rsync "${Options[@]}" --log-file="$Log" "$LMUSIC" "$RMUSIC"
-  AdjustPerms $RMUSIC
+  AdjustPerms "$RMUSIC"
 elif [[ "$media" == "tv" ]]
 then
   rsync "${Options[@]}" --log-file="$Log" "$LTV" "$RTV"
-  AdjustPerms $RTV
+  AdjustPerms "$RTV"
 elif [[ "$media" == "other" ]]
 then
   printf "What would you like to backup? \(Enter full path. Trailing slash
